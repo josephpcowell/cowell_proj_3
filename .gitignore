@@ -1,3 +1,4 @@
 # The data file is too big to store through git
 /data
 .pkl
+.DS_Store
