@@ -3,3 +3,4 @@
 .pkl
 .DS_Store
 hey.sql
+__pycache__
