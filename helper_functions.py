@@ -61,3 +61,33 @@ def devtype_binary(x):
         return 0
     else:
         return None
+
+
+def browser_simp(x):
+    """
+    Simplifies brower desciptions.
+
+    Args:
+        x: value in the id_31 column
+
+    Returns:
+        'chrome', 'safari', 'ie', 'edge',
+            'firefox', 'samsung browser, and 'other'
+    """
+    try:
+        if "chrome" in x:
+            return "chrome"
+        elif "safari" in x:
+            return "safari"
+        elif "ie " in x:
+            return "ie"
+        elif "edge" in x:
+            return "edge"
+        elif "firefox" in x:
+            return "firefox"
+        elif "samsung browser" in x:
+            return "samsung browser"
+        else:
+            return "other"
+    except TypeError:
+        return None
