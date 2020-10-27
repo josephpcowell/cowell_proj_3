@@ -1,7 +1,7 @@
-'''
+"""
 This .py is the structure for the Streamlit app associated with
 the corresponding project on predicting fraudulent credit card transactions.
-'''
+"""
 
 # IMPORTS
 import streamlit as st
@@ -33,6 +33,8 @@ Move the 'Probability Threshold' slider to tailor the model and see
 how it performs. This app will help it's user decide how the model
 works and find the perfect threshold for it's final purpose.
 
+Total observed transactions: 56,766
+
 """
 )
 
@@ -51,6 +53,10 @@ y_pred = X_probabilities[:, 1] > thresh
 with open("data/y_test.npy", "rb") as f:
     y_test = np.load(f)
 
+# Import transaction data
+with open("data/X_transaction.npy", "rb") as f:
+    X_transaction = np.load(f)
+
 # Create data for the curve
 precision, recall, thresholds = precision_recall_curve(
     y_test, X_probabilities[:, 1]
@@ -63,7 +69,7 @@ conf_mat = pd.DataFrame(metrics.confusion_matrix(y_test, y_pred))
 # Plot 1: Precision & Recall
 
 plt.rcParams["font.family"] = "DIN Alternate"
-fig1, ax = plt.subplots()
+fig1, ax = plt.subplots(figsize=[6.5, 6])
 ax.grid(False)
 ax.set_facecolor("1")
 ax.spines["bottom"].set_color("0")
@@ -77,23 +83,38 @@ plt.ylim([0, 1])
 ax.axvline(x=thresh, ymin=0, ymax=1, color="#A57931")
 st.pyplot(fig1)
 
-
-precision2, recall2, thresholds2 = precision_recall_curve(y_test, y_pred)
-
+# New calculations for metrics
 fraud_recall = recall_score(y_test, y_pred)
 nfraud_recall = recall_score(y_test, y_pred, pos_label=0)
+
+# Transaction calculations
+savings = {
+    "Prediction": y_pred.tolist(),
+    "Actual": y_test.tolist(),
+    "Transaction": X_transaction.tolist(),
+}
+
+savings_df = pd.DataFrame(savings)
+
+savings_df["Prediction"] = savings_df["Prediction"].astype("uint8")
+
+saving_result = savings_df[
+    (savings_df["Prediction"] == savings_df["Actual"])
+    & (savings_df["Prediction"] == 1)
+]["Transaction"].sum()
 
 st.write(
     """
 **Fraudulent Transaction Recall:** {:.2%}  
-**Falsely Predicted Valid Transactions:** {:.2%}
+**Falsely Predicted Valid Transactions:** {:.2%}  
+**Amount Saved from Model:** ${:,.2f}
 
 With the visual representation of the model's metric and threshold,
 combined with the metrics shared above, deciding on the perfect 
 model will help the user understand exactly how the model will perform.
 
 """.format(
-        fraud_recall, (1 - nfraud_recall)
+        fraud_recall, (1 - nfraud_recall), saving_result
     )
 )
 
