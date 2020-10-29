@@ -3,7 +3,7 @@ This .py is the structure for the Streamlit app associated with
 the corresponding project on predicting fraudulent credit card transactions.
 """
 
-# IMPORTS
+# Import streamlit
 import streamlit as st
 
 # Import the usual suspects
@@ -13,8 +13,7 @@ import pandas as pd
 import numpy as np
 import pickle
 
-# Import functions to aid in modeling
-from collections import Counter
+# Import functions to aid in visuals
 from sklearn import metrics
 from sklearn.metrics import precision_recall_curve, recall_score
 
@@ -94,6 +93,7 @@ savings = {
     "Transaction": X_transaction.tolist(),
 }
 
+#Create our DataFrame for monetary information
 savings_df = pd.DataFrame(savings)
 
 savings_df["Prediction"] = savings_df["Prediction"].astype("uint8")
