@@ -37,5 +37,5 @@ This repository contains a working model to predict credit card fraud based on a
 ## Potential Impact
 Vesta Corporation put out this dataset to encourage data scientists to help with the fight against credit card fraud. In 2018, [the worldwide cost of credit card fraud was over $24 billion](https://dataprot.net/statistics/credit-card-fraud-statistics/). With this knowledge, I hope my work, or the work of other data scientists exploring this dataset, will be able to aid in the fight again fraudulent transactions.
 <br><br>
-Below is an image of the ROC curve from my final XGBoost model.<br>
+Below is an image of the ROC curve from my final XGBoost model.<br><br>
 ![alt text](Images/xgb_tuned.png)
