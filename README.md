@@ -12,6 +12,8 @@ The slides for the project presentation
 - [app_preview.mov](app_preview.mov)<br>
 A video preview of the streamlit app
 
+Extras: Read the [blog](https://towardsdatascience.com/categorizing-fraudulent-credit-card-transactions-8c6490645fd7) post.
+
 ## Description
 This repository contains a working model to predict credit card fraud based on a [Kaggle dataset](https://www.kaggle.com/c/ieee-fraud-detection) provided by the Vesta corporation. The final model produced is an XG Boost classifier model that predicts a binary of 1 for a fraudulent transaction and 0 for valid transaction.
 
